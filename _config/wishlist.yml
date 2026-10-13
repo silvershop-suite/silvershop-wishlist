@@ -7,6 +7,10 @@ SilverStripe\Security\Member:
   extensions:
     - SilverShop\Wishlist\Extension\WishlistMemberExtension
 
+SilverShop\Page\Product:
+  extensions:
+    - SilverShop\Wishlist\Extension\WishlistProductExtension
+
 SilverShop\Page\ProductController:
   extensions:
     - SilverShop\Wishlist\Extension\WishlistProductControllerExtension

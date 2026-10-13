@@ -71,6 +71,15 @@ class WishlistProductControllerExtension extends Extension
     }
 
     /**
+     * Root-relative wishlist endpoint link (e.g. "/wishlist/toggle"), safe as a form action / formaction
+     * on the product page where the relative {@link WishlistLink} would resolve against the product URL.
+     */
+    public function WishlistToggleLink(string $action = 'toggle'): string
+    {
+        return Controller::join_links('/', WishlistController::singleton()->Link($action));
+    }
+
+    /**
      * Whether members may keep several named lists (mirrors the controller config).
      */
     public function AllowMultipleLists(): bool
