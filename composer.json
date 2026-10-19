@@ -1,5 +1,5 @@
 {
-    "name": "silvershop/wishlist",
+    "name": "silvershop-suite/wishlist",
     "description": "Member wishlists for SilverShop: save products and variations for later, manage them in the account area, and move them to the cart.",
     "type": "silverstripe-vendormodule",
     "keywords": [

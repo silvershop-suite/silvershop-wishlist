@@ -19,7 +19,7 @@ cart.
 ## Installation
 
 ```bash
-composer require silvershop/wishlist
+composer require silvershop-suite/wishlist
 ```
 
 Then run `/dev/build?flush=all`.
@@ -143,7 +143,7 @@ All front-end strings go through `<%t SilverShop\Wishlist.* %>`. Ships with **en
 Done: member wishlist (v1) + guest session wishlist merged on login (v2) + multiple named lists (v3,
 `allow_multiple_lists`) + public read-only sharing (v4, `allow_sharing`).
 
-Back-in-stock / price-drop *alerts* are out of scope here (a separate `silvershop/stock-alerts` concern).
+Back-in-stock / price-drop *alerts* are out of scope here (a separate `silvershop-suite/stock-alerts` concern).
 
 ## Development
 
