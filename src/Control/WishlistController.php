@@ -73,6 +73,7 @@ class WishlistController extends Controller
         'renamelist',
         'deletelist',
         'lists',
+        'state',
         'share',
         'unshare',
         'shared',
@@ -138,6 +139,36 @@ class WishlistController extends Controller
         }
 
         return $this->jsonResponse($this->listsPayload($member, $this->buyableFromRequest($request)));
+    }
+
+    /**
+     * JSON: the product IDs on the current viewer's wishlist (the member's default list, or the guest
+     * session list when allow_guest is on) plus the count. Read-only GET (no CSRF, no mutation). Lets a
+     * cached / session-neutral catalogue tile hydrate its heart on load, and a header badge show the
+     * count. Mirrors the InWishlist() heart semantics (member default list / session list).
+     */
+    public function state(HTTPRequest $request)
+    {
+        $ids = [];
+        $member = Security::getCurrentUser();
+        if ($member && $member->hasMethod('Wishlists')) {
+            $list = $member->Wishlists()->sort('Created ASC, ID ASC')->first();
+            if ($list) {
+                $ids = $list->Items()->column('ProductID');
+            }
+        } elseif ((bool) self::config()->get('allow_guest')) {
+            $session = SessionWishlist::create();
+            if (method_exists($session, 'rows')) {
+                foreach ($session->rows() as $row) {
+                    if (!empty($row['ProductID'])) {
+                        $ids[] = (int) $row['ProductID'];
+                    }
+                }
+            }
+        }
+        $ids = array_values(array_unique(array_map('intval', $ids)));
+
+        return $this->jsonResponse(['success' => true, 'ids' => $ids, 'count' => count($ids)]);
     }
 
     public function share(HTTPRequest $request)
